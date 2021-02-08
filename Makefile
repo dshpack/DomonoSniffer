@@ -2,17 +2,17 @@ CC=gcc
 
 CFLAGS=
 
-SOURCES=src/main.c
+SOURCES=src/initialize.c src/main.c
 
-OBJECTS=$(SOURCES:.c=.o)
+OBJ=$(SOURCES:.c=.o)
 
 all: sniffy
 
-sniffy: main.o
-		$(CC) -o sniffy main.o && ./sniffy
+sniffy: $(OBJ)
+		$(CC) -o sniffy $(OBJ) && ./sniffy
 
 main.o: src/main.c
 		$(CC) -c $(SOURCES)
 
 clean:
-		rm -f *.o sniffy
+		rm -rf src/*.o sniffy
