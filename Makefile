@@ -9,6 +9,9 @@ OBJ=$(SOURCES:.c=.o)
 all: sniffy
 
 sniffy: $(OBJ)
+		$(CC) -o sniffy $(OBJ)
+
+params: $(OBJ)
 		$(CC) -o sniffy $(OBJ) && ./sniffy stop ----fhsdofh 32423423hh hehhe ehohwef ewfhweo
 
 main.o: src/main.c

@@ -2,30 +2,37 @@
 
 static t_command snf_commands[] = {
 	{
+		.id = START,
 		.name = "start",
 		.callback = _start
 	},
 	{
+		.id = STOP,
 		.name = "stop",
 		.callback = _stop
 	},
 	{
+		.id = SHOW,
 		.name = "show",
 		.callback = _show
 	},
 	{
+		.id = STAT,
 		.name = "stat",
 		.callback = _stat
 	},
 	{
+		.id = HELP,
 		.name = "--help",
 		.callback = _help
 	},
 	{
+		.id = EXIT,
 		.name = "exit",
-		.callback = _exit
+		.callback = _exit_program
 	},
 	{
+		.id = -1,
 		.name = NULL,
 		.callback = NULL
 	}
@@ -61,22 +68,24 @@ static SNF_RESULT_T _help()
 	return SNF_RESULT_SUCCESS;
 }
 
-static SNF_RESULT_T _exit()
+static SNF_RESULT_T _exit_program()
 {
 	printf("\nEXIT works\n");
-	//exit(0);
+	exit(EXIT_SUCCESS);
 	return SNF_RESULT_SUCCESS;
 }
 
-void parse_subcomands(size_t command, char *line)
+void parse_subcomands(int command, char *line)
 {
-	char *ptr;
-	snf_commands[(int)command].callback();
-	while (line)
+	char *ptr = NULL;
+	snf_commands[command].callback();
+	while (ptr)
 	{
 		ptr = strtok(NULL, SEPARATOR);
 		if (ptr)
-			printf("sub command or flag %s\n", ptr);
+			printf("sub command or flag: %s\n", ptr);
+		else
+			break ;
 	}
 	//printf("Here must be some subcomands or flags and calls for funcs%s\n", line);
 }
@@ -84,14 +93,20 @@ void parse_subcomands(size_t command, char *line)
 void commands_manager(char *line)
 {
 	t_command *iter = snf_commands;
-	while (sizeof(iter) < sizeof(snf_commands) / sizeof(t_command))
+	
+	while (iter->id != -1)
 	{
+		
 		if (strcmp(line, iter->name) == 0)
 		{
-			parse_subcomands(sizeof(iter), line);
+			parse_subcomands(iter->id, line);
 			break ;
 		}
 		iter++;
-	}	
+	}
+	if (iter->id == -1)
+		printf("\nYou are type a wrong command!\n");
+	//printf("sizeof(iter) = %li, sizeof(snf_commands) / sizeof(t_command) = %li\n", sizeof(iter),sizeof(snf_commands) / sizeof(t_command));
+	//printf("sizeof(snf_commands) = %li, sizeof(t_command) = %li, %p\n", sizeof(snf_commands), sizeof(t_command), snf_commands + 7);
 }
 

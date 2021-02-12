@@ -34,6 +34,7 @@ enum e_command_params
 
 typedef struct command
 {
+	int id;
 	const char *name;
 	SNF_RESULT_T (*callback)();
 } t_command;
@@ -44,6 +45,6 @@ static SNF_RESULT_T _stop(COMMANDS_CALL_PARAMS sub_command);
 static SNF_RESULT_T _show(COMMANDS_CALL_PARAMS sub_command);
 static SNF_RESULT_T _stat(COMMANDS_CALL_PARAMS sub_command);
 static SNF_RESULT_T _help();
-static SNF_RESULT_T _exit();
+static SNF_RESULT_T _exit_program();
 
 #endif

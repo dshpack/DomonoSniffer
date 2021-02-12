@@ -3,19 +3,18 @@
 void parse_line(char *line)
 {
 	char *ptr;
-	char *sep = " ";
 
-	ptr = strtok(line, sep);
+	ptr = strtok(line, SEPARATOR);
 	if (ptr)
 		commands_manager(ptr);
 	//else print something
 }
 
 int main(int argc, char **argv)
-{
-	char buf[256];
+{	
 	if (argc > 1)
 	{
+		char buf[256];
 		for (int i = 1; i < argc; i++)
 		{
 			if (i == 1){
@@ -34,8 +33,18 @@ int main(int argc, char **argv)
 		parse_line(buf);
 		//printf("\n%s|end\n", buf);
 	}
-	//scanf("%256[A-Za-z- ]s", buf);
+	while (1)
+	{
+		char buf[256] = {0};
+		for (int i = 0; i < 256; i++)
+			buf[i] = '\0';
+		printf(">>> ");			
+		scanf("%256[A-Za-z- ]s", buf);
+		getchar();	
+		//scanf("%c%*c",&anint);
+		parse_line(buf);
+	}
 	//printf("\n%s|end\n", buf);
-		printf("|end\n");
+	//printf("|end\n");
 	return 0;
 }
