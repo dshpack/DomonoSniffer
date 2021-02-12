@@ -2,25 +2,48 @@
 # define CLI_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-enum				e_call
+#define SNF_RESULT_T			int
+#define COMMANDS_CALL_PARAMS	int
+#define SPACE_CH 				32
+#define SEPARATOR				" "
+
+enum e_snf_result
+{
+	SNF_RESULT_SUCCESS = 0,
+	SNF_RESULT_ERROR,
+};
+
+enum e_command_call
 {
 	START = 0,
 	STOP,
 	SHOW,
-	STAT
+	STAT,
+	HELP,
+	EXIT
 };
 
-typedef struct		keks
+enum e_command_params
 {
-		char		name[6];
-		void		(*callback)();
-}					t_keks;
+	SUB_COMMAND = 0,
+	FLAG
+};
 
-void				*init(t_keks** keks);
-void				start();
-void				stop();
-void				show();
-void				stat();
+typedef struct command
+{
+	const char *name;
+	SNF_RESULT_T (*callback)();
+} t_command;
+
+void commands_manager(char *command);
+static SNF_RESULT_T _start(COMMANDS_CALL_PARAMS sub_command);
+static SNF_RESULT_T _stop(COMMANDS_CALL_PARAMS sub_command);
+static SNF_RESULT_T _show(COMMANDS_CALL_PARAMS sub_command);
+static SNF_RESULT_T _stat(COMMANDS_CALL_PARAMS sub_command);
+static SNF_RESULT_T _help();
+static SNF_RESULT_T _exit();
 
 #endif
