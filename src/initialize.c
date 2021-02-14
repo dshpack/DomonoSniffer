@@ -40,37 +40,37 @@ static t_command snf_commands[] = {
 
 static SNF_RESULT_T _start(COMMANDS_CALL_PARAMS sub_command)
 {
-	printf("\nSTART works\n");
+	printf(COLOR_GREEN"START works\n"COLOR_RESET);
 	return SNF_RESULT_SUCCESS;
 }
 
 static SNF_RESULT_T _stop(COMMANDS_CALL_PARAMS sub_command)
 {
-	printf("\nSTOP works\n");
+	printf(COLOR_GREEN"STOP works\n"COLOR_RESET);
 	return SNF_RESULT_SUCCESS;
 }
 
 static SNF_RESULT_T	 _show(COMMANDS_CALL_PARAMS sub_command)
 {
-	printf("\nSHOW works\n");
+	printf(COLOR_GREEN"SHOW works\n"COLOR_RESET);
 	return SNF_RESULT_SUCCESS;
 }
 
 static SNF_RESULT_T _stat(COMMANDS_CALL_PARAMS sub_command)
 {
-	printf("\nSTAT works\n");
+	printf(COLOR_GREEN"STAT works\n"COLOR_RESET);
 	return SNF_RESULT_SUCCESS;
 }
 
 static SNF_RESULT_T _help()
 {
-	printf("\nHELP works\n");
+	printf(COLOR_GREEN"HELP works\n"COLOR_RESET);
 	return SNF_RESULT_SUCCESS;
 }
 
 static SNF_RESULT_T _exit_program()
 {
-	printf("\nEXIT works\n");
+	printf(COLOR_GREEN"EXIT works\n"COLOR_RESET);
 	exit(EXIT_SUCCESS);
 	return SNF_RESULT_SUCCESS;
 }
@@ -79,21 +79,22 @@ void parse_subcomands(int command, char *line)
 {
 	char *ptr = NULL;
 	snf_commands[command].callback();
-	while (ptr)
+	do
 	{
 		ptr = strtok(NULL, SEPARATOR);
 		if (ptr)
-			printf("sub command or flag: %s\n", ptr);
+			printf(COLOR_GREEN"\tsub command or flag: %s\n", ptr, COLOR_RESET);
 		else
 			break ;
 	}
+	while (ptr);
 	//printf("Here must be some subcomands or flags and calls for funcs%s\n", line);
 }
 
 void commands_manager(char *line)
 {
 	t_command *iter = snf_commands;
-	
+
 	while (iter->id != -1)
 	{
 		
@@ -105,7 +106,7 @@ void commands_manager(char *line)
 		iter++;
 	}
 	if (iter->id == -1)
-		printf("\nYou are type a wrong command!\n");
+		printf(COLOR_RED"You are type a wrong command!\n"COLOR_RESET);
 	//printf("sizeof(iter) = %li, sizeof(snf_commands) / sizeof(t_command) = %li\n", sizeof(iter),sizeof(snf_commands) / sizeof(t_command));
 	//printf("sizeof(snf_commands) = %li, sizeof(t_command) = %li, %p\n", sizeof(snf_commands), sizeof(t_command), snf_commands + 7);
 }

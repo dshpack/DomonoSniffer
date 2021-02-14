@@ -11,7 +11,9 @@ void parse_line(char *line)
 }
 
 int main(int argc, char **argv)
-{	
+{
+	//printf("\033[1;31mbold red text\033[0m\n");
+	//system("color F0");
 	if (argc > 1)
 	{
 		char buf[256];
@@ -34,14 +36,14 @@ int main(int argc, char **argv)
 		//printf("\n%s|end\n", buf);
 	}
 	while (1)
-	{
-		char buf[256] = {0};
-		for (int i = 0; i < 256; i++)
-			buf[i] = '\0';
-		printf(">>> ");			
+	//for (int i = 0; i < 2; i++)
+	{char c;
+		char buf[256];
+		printf(COLOR_YELLOW">>> "COLOR_RESET);
+		//scanf(" %[^\n]s", buf);
 		scanf("%256[A-Za-z- ]s", buf);
-		getchar();	
-		//scanf("%c%*c",&anint);
+		getchar();
+
 		parse_line(buf);
 	}
 	//printf("\n%s|end\n", buf);

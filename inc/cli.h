@@ -10,6 +10,13 @@
 #define SPACE_CH 				32
 #define SEPARATOR				" "
 
+//Color codes
+#define COLOR_GREEN "\033[32m"
+#define COLOR_RED "\033[31m"
+#define COLOR_YELLOW "\033[33m"
+//#define COLOR_YE "\033[3m"
+#define COLOR_RESET "\033[0m"
+
 enum e_snf_result
 {
 	SNF_RESULT_SUCCESS = 0,
