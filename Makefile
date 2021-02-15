@@ -2,7 +2,7 @@ CC=gcc
 
 CFLAGS=
 
-SOURCES=src/initialize.c src/main.c
+SOURCES=src/initialize.c src/log_manager.c src/main.c
 
 OBJ=$(SOURCES:.c=.o)
 

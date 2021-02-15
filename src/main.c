@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	//for (int i = 0; i < 2; i++)
 	{char c;
 		char buf[256];
-		printf(COLOR_YELLOW">>> "COLOR_RESET);
+		print_message(USER_INPUT, ">>> ");
 		//scanf(" %[^\n]s", buf);
 		scanf("%256[A-Za-z- ]s", buf);
 		getchar();
