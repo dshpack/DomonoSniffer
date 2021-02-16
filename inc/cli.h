@@ -10,6 +10,7 @@
 #define COMMANDS_CALL_PARAMS	int
 #define SPACE_CH 				32
 #define SEPARATOR				" "
+//#define COMMANDS_AMOUNT			(sizeof(snf_commands) / sizeof(t_command))
 
 enum e_snf_result
 {
@@ -35,7 +36,6 @@ enum e_command_params
 
 typedef struct command
 {
-	int id;
 	const char *name;
 	SNF_RESULT_T (*callback)();
 } t_command;
