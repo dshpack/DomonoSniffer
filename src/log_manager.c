@@ -1,5 +1,5 @@
 #include "../inc/cli.h"
-
+/*
 void print_message(int TYPE, const char *message)
 {
 	if (TYPE == WRONG_COMMAND)
@@ -11,3 +11,4 @@ void print_message(int TYPE, const char *message)
 	else if (TYPE == USER_INPUT)
 		printf("\033[%im%s\033[%im", C_YELLOW, message, C_RESET);
 }
+*/

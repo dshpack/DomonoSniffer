@@ -1,40 +1,53 @@
 #include "../inc/cli.h"
-
+/*
 void parse_line(char *line)
 {
 	char *ptr;
 
-	ptr = strtok(line, SEPARATOR);
+	ptr = strtok(line, " ");
 	if (ptr)
-		commands_manager(ptr);
+	{
+		if (commands_manager(ptr) != SNF_RESULT_SUCCESS)
+			print_message(WRONG_COMMAND, "You are type a wrong command!");
+	}
+}
+*/
+
+void parse_line(char *line)
+{
+	(void)line;
+}
+
+SNF_RESULT_T parse_cmd(int argc, char **argv)
+{
+	if (commands_manager(argc, argv) != SNF_RESULT_SUCCESS)
+	{
+		print_message(WRONG_COMMAND, "You are type a wrong command!");
+		return SNF_RESULT_ERROR;
+	}
 }
 
 int main(int argc, char **argv)
 {
-	if (argc > 1)
+	if (argc == 1)
 	{
-		char buf[256];
-		for (int i = 1; i < argc; i++)
+		while (1)
 		{
-			if (i == 1){
-				strcpy(buf, argv[i]);
-				strcpy(&(buf[strlen(argv[i])]), " \0");
-			}
-			else {
-				strcpy(strrchr(buf, SPACE_CH) + 1, argv[i]);
-				if (i < argc - 1)
-					strcpy(strrchr(buf, SPACE_CH) + strlen(argv[i]) + 1, " \0");
-			}
+			char buf[256];
+
+			print_message(USER_INPUT, ">>> ");
+
+			scanf("%256[^\n]s", buf);
+			getchar();
+
+			/* You need to write UNIT Factory strsplit */
+			parse_line(buf);
+
+			parse_cmd(usr_argc, usr_argv);
 		}
-		parse_line(buf);
 	}
-	while (1)
-	{
-		char buf[256];
-		print_message(USER_INPUT, ">>> ");
-		scanf("%256[^\n]s", buf);
-		getchar();
-		parse_line(buf);
-	}
+	else
+		return parse_cmd(argc - 1, argv + 1);
+
 	return 0;
 }

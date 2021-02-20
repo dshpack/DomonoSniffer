@@ -27,50 +27,59 @@ static t_command snf_commands[] = {
 	}
 };
 
-static SNF_RESULT_T _start(COMMANDS_CALL_PARAMS sub_command)
+static SNF_RESULT_T _start(int argc, char **argv)
 {
 	print_message(COMMAND_WORKED, "START works");
+
+	if (argc != 1)
+	{
+		print_message(COMMAND_WORKED, "I need 1 arg");
+		return SNF_RESULT_ERROR;
+	}
+
+	print_message(USER_INPUT, "Got %s", argv[0]);
+
 	return SNF_RESULT_SUCCESS;
 }
 
-static SNF_RESULT_T _stop(COMMANDS_CALL_PARAMS sub_command)
+static SNF_RESULT_T _stop(int argc, char **argv)
 {
 	print_message(COMMAND_WORKED, "STOP works");
 	return SNF_RESULT_SUCCESS;
 }
 
-static SNF_RESULT_T	 _show(COMMANDS_CALL_PARAMS sub_command)
+static SNF_RESULT_T	 _show(int argc, char **argv)
 {
 	print_message(COMMAND_WORKED, "SHOW works");
 	return SNF_RESULT_SUCCESS;
 }
 
-static SNF_RESULT_T _stat(COMMANDS_CALL_PARAMS sub_command)
+static SNF_RESULT_T _stat(int argc, char **argv)
 {
 	print_message(COMMAND_WORKED, "STAT works");
 	return SNF_RESULT_SUCCESS;
 }
 
-static SNF_RESULT_T _help()
+static SNF_RESULT_T _help(int argc, char **argv)
 {
 	print_message(COMMAND_WORKED, "HELP works");
 	return SNF_RESULT_SUCCESS;
 }
 
-static SNF_RESULT_T _exit_program()
+static SNF_RESULT_T _exit_program(int argc, char **argv)
 {
 	print_message(COMMAND_WORKED, "EXIT works");
 	exit(EXIT_SUCCESS);
 	return SNF_RESULT_SUCCESS;
 }
-
+/*
 void parse_subcomands(int COMMAND, char *line)
 {
 	char *ptr = NULL;
 	snf_commands[COMMAND].callback();
 	do
 	{
-		ptr = strtok(NULL, SEPARATOR);
+		ptr = strtok(NULL, " ");
 		if (ptr)
 			print_message(SUB_COMMANDS, (const char*)ptr);
 		else
@@ -78,18 +87,21 @@ void parse_subcomands(int COMMAND, char *line)
 	}
 	while (ptr);
 }
-
-void commands_manager(char *line)
+*/
+SNF_RESULT_T commands_manager(int argc, char **argv)
 {
+	char *cmd = *argv;
+
 	for (int i = 0; i < COMMANDS_AMOUNT; i++)
 	{
-		if (strcmp(line, snf_commands[i].name) == 0)
+		if (strcmp(cmd, snf_commands[i].name) == 0)
 		{
-			parse_subcomands(i, line);
-			break ;
+			snf_commands[i].callback(argc - 1, argv + 1);
+			return SNF_RESULT_SUCCESS;
 		}
-		if (i == COMMANDS_AMOUNT - 1)
-			print_message(WRONG_COMMAND, "You are type a wrong command!");
+		
 	}
+	
+	return SNF_RESULT_ERROR;
 }
 
