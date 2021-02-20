@@ -6,11 +6,11 @@
 #include <string.h>
 #include "log_manager.h"
 
-#define SNF_RESULT_T			int
-#define COMMANDS_CALL_PARAMS	int
-#define SPACE_CH 				32
-#define SEPARATOR				" "
-//#define COMMANDS_AMOUNT			(sizeof(snf_commands) / sizeof(t_command))
+#define SNF_RESULT_T int
+#define COMMANDS_CALL_PARAMS int
+#define SPACE_CH 32
+#define SEPARATOR " "
+#define COMMANDS_AMOUNT (sizeof(snf_commands) / sizeof(t_command))
 
 enum e_snf_result
 {

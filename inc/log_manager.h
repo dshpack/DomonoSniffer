@@ -8,7 +8,7 @@ enum e_log_color
 	C_GREEN,
 	C_YELLOW
 };
-//didn`t invent normal names yet
+
 enum e_log_type
 {
 	WRONG_COMMAND = 0,

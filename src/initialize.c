@@ -24,10 +24,6 @@ static t_command snf_commands[] = {
 	{
 		.name = "exit",
 		.callback = _exit_program
-	},
-	{
-		.name = NULL,
-		.callback = NULL
 	}
 };
 
@@ -68,10 +64,10 @@ static SNF_RESULT_T _exit_program()
 	return SNF_RESULT_SUCCESS;
 }
 
-void parse_subcomands(t_command *command, char *line)
+void parse_subcomands(int COMMAND, char *line)
 {
 	char *ptr = NULL;
-	command->callback();
+	snf_commands[COMMAND].callback();
 	do
 	{
 		ptr = strtok(NULL, SEPARATOR);
@@ -81,27 +77,19 @@ void parse_subcomands(t_command *command, char *line)
 			break ;
 	}
 	while (ptr);
-	//printf("Here must be some subcomands or flags and calls for funcs%s\n", line);
 }
 
 void commands_manager(char *line)
 {
-	t_command *iter = snf_commands;
-
-	while (iter->name)
+	for (int i = 0; i < COMMANDS_AMOUNT; i++)
 	{
-		if (strcmp(line, iter->name) == 0)
+		if (strcmp(line, snf_commands[i].name) == 0)
 		{
-			parse_subcomands(iter, line);
-			//parse_subcomands(COMMANDS_AMOUNT, line);
-			//printf("COMMANDS_AMOUNT = %li\n", COMMANDS_AMOUNT);
+			parse_subcomands(i, line);
 			break ;
 		}
-		iter++;
+		if (i == COMMANDS_AMOUNT - 1)
+			print_message(WRONG_COMMAND, "You are type a wrong command!");
 	}
-	if (!iter->name)
-		print_message(WRONG_COMMAND, "You are type a wrong command!");
-	//printf("sizeof(iter) = %li, sizeof(snf_commands) / sizeof(t_command) = %li\n", sizeof(iter),sizeof(snf_commands) / sizeof(t_command));
-	//printf("sizeof(snf_commands) = %li, sizeof(t_command) = %li, %p\n", sizeof(snf_commands), sizeof(t_command), snf_commands + 7);
 }
 
