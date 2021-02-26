@@ -9,7 +9,6 @@
 #define SNF_RESULT_T int
 #define COMMANDS_CALL_PARAMS int
 #define SPACE_CH 32
-#define SEPARATOR " "
 #define COMMANDS_AMOUNT (sizeof(snf_commands) / sizeof(t_command))
 
 enum e_snf_result
@@ -40,12 +39,6 @@ typedef struct command
 	SNF_RESULT_T (*callback)();
 } t_command;
 
-void commands_manager(char *command);
-static SNF_RESULT_T _start(COMMANDS_CALL_PARAMS sub_command);
-static SNF_RESULT_T _stop(COMMANDS_CALL_PARAMS sub_command);
-static SNF_RESULT_T _show(COMMANDS_CALL_PARAMS sub_command);
-static SNF_RESULT_T _stat(COMMANDS_CALL_PARAMS sub_command);
-static SNF_RESULT_T _help();
-static SNF_RESULT_T _exit_program();
+SNF_RESULT_T commands_manager(int argc, char **argv);
 
 #endif

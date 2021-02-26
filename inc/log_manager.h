@@ -11,12 +11,17 @@ enum e_log_color
 
 enum e_log_type
 {
-	WRONG_COMMAND = 0,
-	COMMAND_WORKED,
-	SUB_COMMANDS,
-	USER_INPUT
+	WRONG_COMMAND = C_RED,
+	COMMAND_WORKED = C_GREEN,
+	SUB_COMMANDS = C_GREEN,
+	USER_INPUT = C_YELLOW
 };
 
-void print_message(int TYPE, const char *message);
+#define print_message(TYPE, ...) do		\
+{										\
+	printf("\033[%im", TYPE);			\
+	printf(__VA_ARGS__);				\
+	printf("\033[%im", C_RESET);		\
+} while (0)
 
 #endif
